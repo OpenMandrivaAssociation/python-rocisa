@@ -1,0 +1,22 @@
+--- a/tensilelite/rocisa/rocisa/include/instruction/extension.hpp
++++ b/tensilelite/rocisa/rocisa/include/instruction/extension.hpp
+@@ -537,6 +537,19 @@
+     {
+         if(!sel.has_value())
+         {
++            // LLVM 16+/23 +real-true16: plain "v_cvt_f16_f32 vN, ..." is invalid on
++            // NoSDWA (gfx11+). Default to low half selector so callers that only need
++            // a single f16 in the VGPR low word still assemble.
++            rocIsa& instance = rocIsa::getInstance();
++            if(instance.getArchCaps()["NoSDWA"])
++            {
++                return std::make_shared<VCvtF32toF16>(
++                    dst,
++                    src,
++                    std::nullopt,
++                    std::vector<int>{static_cast<int>(HighBitSel::LOW)},
++                    comment);
++            }
+             return std::make_shared<VCvtF32toF16>(
+                 dst, src, std::nullopt, std::vector<int>{}, comment);
+         }

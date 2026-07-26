@@ -1,0 +1,29 @@
+--- a/tensilelite/rocisa/CMakeLists.txt
++++ b/tensilelite/rocisa/CMakeLists.txt
+@@ -5,9 +5,10 @@
+ # (hipblaslt CMake) builds.
+ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+     cmake_minimum_required(VERSION 3.25)
+-
+-    include(${CMAKE_CURRENT_LIST_DIR}/../../../../cmake/modules/default_amdclang.cmake)
+-
++    # Distro standalone: monorepo default_amdclang.cmake is absent
++    if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../../cmake/modules/default_amdclang.cmake")
++        include(${CMAKE_CURRENT_LIST_DIR}/../../../../cmake/modules/default_amdclang.cmake)
++    endif()
+     project(rocisa LANGUAGES CXX)
+     set(ROCISA_STANDALONE ON)
+ else()
+@@ -161,7 +162,11 @@
+     # define init_stinkytofu), so they compile into _rocisa, not libstinkytofu.
+     # rocisa owns them directly here rather than relying on stinkytofu to inject
+     # them, so the de-bundled (find_package) build links them too.
+-    set(_stinkytofu_src_dir "${CMAKE_CURRENT_SOURCE_DIR}/../../../../shared/stinkytofu")
++    if(DEFINED STINKYTOFU_SOURCE_DIR)
++        set(_stinkytofu_src_dir "${STINKYTOFU_SOURCE_DIR}")
++    else()
++        set(_stinkytofu_src_dir "${CMAKE_CURRENT_SOURCE_DIR}/../../../../shared/stinkytofu")
++    endif()
+     target_sources(_rocisa PRIVATE
+         "${_stinkytofu_src_dir}/src/conversion/rocisa/AllHwMappings.cpp"
+         "${_stinkytofu_src_dir}/src/conversion/rocisa/ToStinkyTofuUtils.cpp"
