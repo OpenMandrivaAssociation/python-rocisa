@@ -4,6 +4,7 @@
 Name:		python-rocisa
 Version:	7.14.0
 Release:	1
+%{!?rocm_llvm_maj_ver:%global rocm_llvm_maj_ver 23}
 Summary:	Python AMDGCN ISA generator (rocisa) for ROCm TensileLite
 License:	MIT
 Group:		Development/Python
@@ -18,6 +19,7 @@ Patch1:		0002-true16-ecvt-f32-to-f16.patch
 BuildRequires:	rocm-rpm-macros
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	git-core
 BuildRequires:	rocm-cmake
 BuildRequires:	rocm-hip-devel
 BuildRequires:	clang >= %{rocm_llvm_maj_ver}
