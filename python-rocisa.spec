@@ -1,18 +1,18 @@
 # rocisa — Python/nanobind AMDGCN ISA generator for hipBLASLt TensileLite
-# Built from the hipblaslt tensilelite/rocisa tree (TheRock 7.14).
+# Built from the hipblaslt tensilelite/rocisa tree (TheRock 10.0).
 
 Name:		python-rocisa
-Version:	7.14.0
-Release:	2
+Version:	10.0.0
+Release:	1
 %{!?rocm_llvm_maj_ver:%global rocm_llvm_maj_ver 23}
 Summary:	Python AMDGCN ISA generator (rocisa) for ROCm TensileLite
 License:	MIT
 Group:		Development/Python
 URL:		https://github.com/ROCm/rocm-libraries
 # rocisa lives inside the hipblaslt asset
-Source0:	https://github.com/ROCm/rocm-libraries/releases/download/therock-7.14/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
+Source0:	https://github.com/ROCm/rocm-libraries/releases/download/therock-10.0/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
 # Conversion glue sources (also shipped in stinkytofu-devel)
-Source1:	https://github.com/ROCm/rocm-libraries/releases/download/therock-7.14/stinkytofu.tar.gz#/stinkytofu-%{version}.tar.gz
+Source1:	https://github.com/ROCm/rocm-libraries/releases/download/therock-10.0/stinkytofu.tar.gz#/stinkytofu-%{version}.tar.gz
 Patch0:		0001-rocisa-distro-standalone.patch
 Patch1:		0002-true16-ecvt-f32-to-f16.patch
 
