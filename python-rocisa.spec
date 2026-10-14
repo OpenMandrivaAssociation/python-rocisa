@@ -3,7 +3,7 @@
 
 Name:		python-rocisa
 Version:	10.0.0
-Release:	1
+Release:	2
 %{!?rocm_llvm_maj_ver:%global rocm_llvm_maj_ver 23}
 Summary:	Python AMDGCN ISA generator (rocisa) for ROCm TensileLite
 License:	MIT
