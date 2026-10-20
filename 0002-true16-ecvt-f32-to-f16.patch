@@ -8,7 +8,7 @@
 +            // NoSDWA (gfx11+). Default to low half selector so callers that only need
 +            // a single f16 in the VGPR low word still assemble.
 +            rocIsa& instance = rocIsa::getInstance();
-+            if(instance.getArchCaps()["NoSDWA"])
++            if(capOrDefault(instance.getArchCaps(), "NoSDWA"))
 +            {
 +                return std::make_shared<VCvtF32toF16>(
 +                    dst,
